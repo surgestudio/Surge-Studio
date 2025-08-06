@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chromallogy - Redefining Beauty Through Color</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Animated background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #f093fb 50%, 
+                #f5576c 75%, 
+                #4facfe 100%);
+            background-size: 300% 300%;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main container */
+        .container {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            padding: 3rem 4rem 2rem;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            font-style: italic;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .logo sup {
+            font-size: 0.6em;
+            vertical-align: super;
+            font-style: normal;
+        }
+
+        /* Left panel */
+        .hero-panel {
+            padding: 4rem 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 15;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            color: white;
+            letter-spacing: -1px;
+            position: relative;
+        }
+
+        /* Chromatic aberration for hero title */
+        .hero-title::before {
+            content: 'Redefining beauty through color';
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+            line-height: 0.9;
+            letter-spacing: -1px;
+            color: rgba(255, 0, 128, 0.4);
+            transform: translate(-2px, -1px);
+            z-index: -1;
+        }
+
+        .hero-title::after {
+            content: 'Redefining beauty through color';
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+            line-height: 0.9;
+            letter-spacing: -1px;
+            color: rgba(0, 255, 128, 0.4);
+            transform: translate(2px, 1px);
+            z-index: -1;
+        }
+
+        .hero-subtitle {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 80%;
+        }
+
+        .hero-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            max-width: 85%;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Right panel */
+        .content-panel {
+            padding: 4rem 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 15;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: white;
+            letter-spacing: -1px;
+            position: relative;
+        }
+
+        /* Chromatic aberration for section title */
+        .section-title::before {
+            content: 'The System';
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: -1px;
+            color: rgba(255, 0, 128, 0.3);
+            transform: translate(-1px, -1px);
+            z-index: -1;
+        }
+
+        .section-title::after {
+            content: 'The System';
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: -1px;
+            color: rgba(0, 255, 128, 0.3);
+            transform: translate(1px, 1px);
+            z-index: -1;
+        }
+
+        .content-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2.5rem;
+        }
+
+        .highlight {
+            font-weight: 500;
+            color: white;
+        }
+
+        .color-strip {
+            width: 100%;
+            height: 120px;
+            position: relative;
+            border-radius: 15px;
+            margin: 2rem 0;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Color Map Container */
+        .color-map-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        /* The actual color map image - more dynamic movement */
+        .color-map-image {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: url('chromallogy.png');
+            background-size: cover;
+            background-position: center;
+            animation: dynamicExploration 20s ease-in-out infinite;
+            border-radius: 15px;
+        }
+
+        /* Much more dynamic exploration of different areas */
+        @keyframes dynamicExploration {
+            0% { 
+                transform: translate(0%, 0%) scale(1.3);
+            }
+            12% { 
+                transform: translate(-30%, -10%) scale(1.1);
+            }
+            25% { 
+                transform: translate(-15%, -40%) scale(1.4);
+            }
+            37% { 
+                transform: translate(-50%, -20%) scale(1.2);
+            }
+            50% { 
+                transform: translate(-25%, -50%) scale(1.5);
+            }
+            62% { 
+                transform: translate(-40%, -35%) scale(1.1);
+            }
+            75% { 
+                transform: translate(-10%, -25%) scale(1.3);
+            }
+            87% { 
+                transform: translate(-35%, -45%) scale(1.2);
+            }
+            100% { 
+                transform: translate(0%, 0%) scale(1.3);
+            }
+        }
+
+        /* Subtle glow effect on the container */
+        .color-strip::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0.1), 
+                rgba(255,255,255,0.05), 
+                rgba(255,255,255,0.1));
+            border-radius: 17px;
+            z-index: -1;
+            animation: containerGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes containerGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .feature-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .feature-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Footer */
+        .footer {
+            grid-column: 1 / -1;
+            padding: 2rem 4rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mission-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 60%;
+        }
+
+        .contact-info {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* MICROGRAPHICS - MORE DRAMATIC AND VISIBLE */
+
+        /* Molecular Structure 1 - Larger and more visible */
+        .molecule-1 {
+            position: fixed;
+            top: 12%;
+            left: -200px;
+            width: 140px;
+            height: 100px;
+            z-index: 3;
+            opacity: 0.4;
+            animation: floatAcross1 20s linear infinite;
+        }
+
+        .molecule-1::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 
+                50px 8px 0 -1px white,
+                25px 40px 0 1px white,
+                70px 30px 0 -2px white,
+                90px 10px 0 0px white,
+                15px 65px 0 -1px white;
+        }
+
+        .molecule-1::after {
+            content: '';
+            position: absolute;
+            top: 27px;
+            left: 34px;
+            width: 50px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 
+                -5px 40px 0 0 rgba(255, 255, 255, 0.7),
+                45px 23px 0 0 rgba(255, 255, 255, 0.7),
+                65px -17px 0 0 rgba(255, 255, 255, 0.7),
+                -10px 65px 0 0 rgba(255, 255, 255, 0.7);
+        }
+
+        /* Molecular Structure 2 - Different timing */
+        .molecule-2 {
+            position: fixed;
+            top: 70%;
+            right: -180px;
+            width: 120px;
+            height: 120px;
+            z-index: 3;
+            opacity: 0.35;
+            animation: floatAcross2 22s linear infinite;
+            animation-delay: 7s;
+        }
+
+        .molecule-2::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 
+                40px 25px 0 0px white,
+                20px 60px 0 -1px white,
+                65px 55px 0 -1px white,
+                80px 15px 0 1px white,
+                90px 45px 0 -2px white,
+                10px 90px 0 0px white;
+        }
+
+        .molecule-2::after {
+            content: '';
+            position: absolute;
+            top: 21px;
+            left: 27px;
+            width: 40px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                5px 60px 0 0 rgba(255, 255, 255, 0.6),
+                45px 40px 0 0 rgba(255, 255, 255, 0.6),
+                60px -6px 0 0 rgba(255, 255, 255, 0.6),
+                70px 30px 0 0 rgba(255, 255, 255, 0.6),
+                -15px 90px 0 0 rgba(255, 255, 255, 0.6);
+        }
+
+        /* Molecular Structure 3 - Additional one */
+        .molecule-3 {
+            position: fixed;
+            top: 45%;
+            left: -160px;
+            width: 100px;
+            height: 80px;
+            z-index: 3;
+            opacity: 0.3;
+            animation: floatAcross3 25s linear infinite;
+            animation-delay: 15s;
+        }
+
+        .molecule-3::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 
+                30px 15px 0 1px white,
+                60px 5px 0 -1px white,
+                45px 40px 0 0px white,
+                75px 35px 0 -2px white;
+        }
+
+        .molecule-3::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            width: 30px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                30px 10px 0 0 rgba(255, 255, 255, 0.5),
+                15px 40px 0 0 rgba(255, 255, 255, 0.5),
+                45px 35px 0 0 rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes floatAcross1 {
+            0% { 
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            8% { opacity: 0.4; }
+            92% { opacity: 0.4; }
+            100% { 
+                transform: translateX(calc(100vw + 200px)) translateY(-50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes floatAcross2 {
+            0% { 
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            8% { opacity: 0.35; }
+            92% { opacity: 0.35; }
+            100% { 
+                transform: translateX(calc(-100vw - 180px)) translateY(60px) rotate(-360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes floatAcross3 {
+            0% { 
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            8% { opacity: 0.3; }
+            92% { opacity: 0.3; }
+            100% { 
+                transform: translateX(calc(100vw + 160px)) translateY(40px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        /* Light Wavelength Pattern 1 - Much more prominent */
+        .wavelength-1 {
+            position: fixed;
+            top: 25%;
+            left: -100%;
+            width: 500px;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #ff0080 15%, 
+                #00ff80 30%, 
+                #8000ff 45%, 
+                #ff8000 60%, 
+                #0080ff 75%, 
+                transparent 100%);
+            opacity: 0.6;
+            z-index: 2;
+            animation: wavelengthFlow1 16s ease-in-out infinite;
+            transform: rotate(12deg);
+        }
+
+        .wavelength-1::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 0;
+            right: 0;
+            height: 14px;
+            background: inherit;
+            opacity: 0.4;
+            filter: blur(3px);
+        }
+
+        /* Light Wavelength Pattern 2 - Larger and more visible */
+        .wavelength-2 {
+            position: fixed;
+            top: 65%;
+            right: -100%;
+            width: 600px;
+            height: 5px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #ff00ff 20%, 
+                #00ffff 40%, 
+                #ffff00 60%, 
+                #ff0040 80%, 
+                transparent 100%);
+            opacity: 0.5;
+            z-index: 2;
+            animation: wavelengthFlow2 18s ease-in-out infinite;
+            transform: rotate(-15deg);
+            animation-delay: 5s;
+        }
+
+        .wavelength-2::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 0;
+            right: 0;
+            height: 11px;
+            background: inherit;
+            opacity: 0.3;
+            filter: blur(2px);
+        }
+
+        /* Light Wavelength Pattern 3 - Vertical movement */
+        .wavelength-3 {
+            position: fixed;
+            top: 40%;
+            left: -300px;
+            width: 400px;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #ff4080 25%, 
+                #40ff80 50%, 
+                #8040ff 75%, 
+                transparent 100%);
+            opacity: 0.4;
+            z-index: 2;
+            animation: wavelengthFlow3 14s ease-in-out infinite;
+            animation-delay: 8s;
+            transform: rotate(-25deg);
+        }
+
+        .wavelength-3::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: inherit;
+            opacity: 0.3;
+            filter: blur(2px);
+        }
+
+        /* Wavelength Pattern 4 - Additional one */
+        .wavelength-4 {
+            position: fixed;
+            top: 80%;
+            left: -100%;
+            width: 350px;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #80ff40 30%, 
+                #4080ff 60%, 
+                transparent 100%);
+            opacity: 0.35;
+            z-index: 2;
+            animation: wavelengthFlow4 20s ease-in-out infinite;
+            animation-delay: 12s;
+            transform: rotate(8deg);
+        }
+
+        .wavelength-4::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 7px;
+            background: inherit;
+            opacity: 0.3;
+            filter: blur(1px);
+        }
+
+        /* Wavelength Pattern 5 - Top area */
+        .wavelength-5 {
+            position: fixed;
+            top: 15%;
+            right: -100%;
+            width: 450px;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #ff8040 20%, 
+                #40ff40 50%, 
+                #4040ff 80%, 
+                transparent 100%);
+            opacity: 0.4;
+            z-index: 2;
+            animation: wavelengthFlow5 17s ease-in-out infinite;
+            animation-delay: 3s;
+            transform: rotate(18deg);
+        }
+
+        .wavelengthFlow5::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: inherit;
+            opacity: 0.3;
+            filter: blur(2px);
+        }
+
+        @keyframes wavelengthFlow1 {
+            0% { 
+                transform: translateX(0) rotate(12deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.6; }
+                90% { opacity: 0.6; }
+            100% { 
+                transform: translateX(calc(100vw + 600px)) rotate(12deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes wavelengthFlow2 {
+            0% { 
+                transform: translateX(0) rotate(-15deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { 
+                transform: translateX(calc(-100vw - 600px)) rotate(-15deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes wavelengthFlow3 {
+            0% { 
+                transform: translateX(0) rotate(-25deg);
+                opacity: 0;
+            }
+            12% { opacity: 0.4; }
+            88% { opacity: 0.4; }
+            100% { 
+                transform: translateX(calc(100vw + 500px)) rotate(-25deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes wavelengthFlow4 {
+            0% { 
+                transform: translateX(0) rotate(8deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.35; }
+            90% { opacity: 0.35; }
+            100% { 
+                transform: translateX(calc(100vw + 450px)) rotate(8deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes wavelengthFlow5 {
+            0% { 
+                transform: translateX(0) rotate(18deg);
+                opacity: 0;
+            }
+            12% { opacity: 0.4; }
+            88% { opacity: 0.4; }
+            100% { 
+                transform: translateX(calc(-100vw - 450px)) rotate(18deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto;
+            }
+            
+            .content-panel {
+                background: rgba(255, 255, 255, 0.05);
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .hero-title::before,
+            .hero-title::after {
+                font-size: 3.5rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .mission-text {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 2rem;
+            }
+            
+            .hero-panel, .content-panel {
+                padding: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-title::before,
+            .hero-title::after {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">chrom<sup>all</sup>ogy</div>
+        </header>
+
+        <!-- Left Panel - Hero -->
+        <section class="hero-panel">
+            <h1 class="hero-title">Redefining beauty through color</h1>
+            <p class="hero-subtitle">A research-backed, inclusive color system designed to help beauty brands build better shade ranges from the inside out.</p>
+            <p class="hero-description">Where science meets beauty. Where inclusion becomes infrastructure. We're building the tools that will define what inclusive product development means in the next era of beauty.</p>
+            <a href="mailto:hello@surgestudio.co" class="cta-button">Start Your Journey</a>
+        </section>
+
+        <!-- Right Panel - Content -->
+        <section class="content-panel">
+            <h2 class="section-title">The System</h2>
+            <p class="content-text">For decades, complexion has been <span class="highlight">misrepresented, oversimplified, and underbuilt</span>. Chromallogy flips that script by making color a foundational input: scientific, strategic, and scalable.</p>
+            
+            <div class="color-strip">
+                <div class="color-map-container">
+                    <div class="color-map-image"></div>
+                </div>
+            </div>
+            
+            <p class="content-text">This isn't about aesthetics. It's about <span class="highlight">integrity in how we design for human skin</span>. A strategic infrastructure layer, built from real research, designed to integrate, and meant to scale.</p>
+            
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-title">Research-Rooted</div>
+                    <div class="feature-text">Built from academic-grade skin tone data and scientific rigor</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-title">System, Not Tool</div>
+                    <div class="feature-text">Complete framework with color space, taxonomy, and audits</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-title">Embedded in R&D</div>
+                    <div class="feature-text">Inclusivity happens at the source, not post-production</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-title">Scalable & Ownable</div>
+                    <div class="feature-text">Licensing model that grows with your brand</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Floating Micrographics - Outside main container -->
+    <div class="molecule-1"></div>
+    <div class="molecule-2"></div>
+    <div class="molecule-3"></div>
+    <div class="wavelength-1"></div>
+    <div class="wavelength-2"></div>
+    <div class="wavelength-3"></div>
+    <div class="wavelength-4"></div>
+    <div class="wavelength-5"></div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="mission-text">"Give brands, labs, and developers the tools they need to create complexion products with accuracy, intention, and integrity."</div>
+            <div class="contact-info">www.surgestudio.co/chromallogy</div>
+        </footer>
+    </div>
+
+    <script>
+        // Subtle mouse parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            const mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+            
+            const heroPanel = document.querySelector('.hero-panel');
+            const contentPanel = document.querySelector('.content-panel');
+            
+            if (heroPanel) {
+                heroPanel.style.transform = `translate(${mouseX * 3}px, ${mouseY * 3}px)`;
+            }
+            if (contentPanel) {
+                contentPanel.style.transform = `translate(${mouseX * -3}px, ${mouseY * -3}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
