@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chromallogy - Redefining Beauty Through Color</title>
+    <title>Chromallogy - Software for Inclusive Complexion Product Development</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="chromallogy-logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -11,687 +20,855 @@
             box-sizing: border-box;
         }
         
-        /* Animated background */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            25% { background-position: 100% 25%; }
-            50% { background-position: 50% 100%; }
-            75% { background-position: 25% 0%; }
-            100% { background-position: 0% 50%; }
+        :root {
+            --color-primary: #FFFFFF;
+            --color-accent: #74322f;
+            --color-secondary: #f6c8bc;
+            --color-text: #1A1A1A;
+            --color-border: #f6c8bc;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
-            font-family: 'Times New Roman', serif;
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background: var(--color-primary);
             line-height: 1.6;
-            min-height: 100vh;
-            position: relative;
-            background: linear-gradient(135deg, #6B3410 0%, #8B4513 15%, #A0522D 30%, #CD853F 45%, #DEB887 60%, #F5DEB3 75%, #FFF8DC 90%, #FFFAF0 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 25s ease infinite;
+            overflow-x: hidden;
         }
         
-        body::before {
+        /* Accessibility: Respect reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 60px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            background: var(--color-primary);
+            border-bottom: 1px solid var(--color-border);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
+        }
+        
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--color-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+            transition: transform 0.2s ease;
+        }
+        
+        .logo:hover img {
+            transform: scale(1.02);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .nav-link {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--color-text);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 4px;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-link::after {
             content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-secondary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Buttons */
+        .btn {
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 500;
+            padding: 18px 40px;
+            border-radius: 40px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--color-secondary);
+            color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(116, 50, 47, 0.2);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-border);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(246, 200, 188, 0.3);
+            border-color: var(--color-accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 140px 60px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(246, 200, 188, 0.3) 0%, rgba(246, 200, 188, 0.1) 50%, transparent 100%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            left: -5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(116, 50, 47, 0.15) 0%, rgba(116, 50, 47, 0.05) 50%, transparent 100%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(-30px, -30px) scale(1.1);
+            }
+        }
+        
+        /* 
+        IMAGE PLACEMENT GUIDE:
+        To add your color map gradient or foundation imagery:
+        
+        1. For background image in hero:
+           Add to .hero CSS: 
+           background-image: url('your-image.jpg');
+           background-size: cover;
+           background-position: center;
+        
+        2. For image next to text (side-by-side layout):
+           Change .hero to use flexbox/grid layout
+           Add <img src="your-image.jpg" alt="Color map"> inside .hero-content
+        
+        3. For color map visualization:
+           Add <img> tag below the paragraph, before CTA button
+           Style with max-width and border-radius for polish
+        */
+        
+        .hero-content {
+            max-width: 1100px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+        
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 96px;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--color-text);
+        }
+        
+        .hero h2 {
+            font-family: var(--font-heading);
+            font-size: 40px;
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 32px;
+            color: var(--color-text);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            line-height: 1.7;
+            color: var(--color-text);
+            max-width: 900px;
+            margin: 0 auto 48px;
+        }
+        
+        /* Who We Work With Section */
+        .section {
+            padding: 60px 60px 120px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-headline {
+            font-family: var(--font-heading);
+            font-size: 48px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 80px;
+            color: var(--color-text);
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        
+        .card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            padding: 48px 32px;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .card.fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .card:nth-child(2).fade-in {
+            animation-delay: 0.1s;
+        }
+        
+        .card:nth-child(3).fade-in {
+            animation-delay: 0.2s;
+        }
+        
+        .card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(116, 50, 47, 0.1);
+        }
+        
+        .card-title {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 16px;
+        }
+        
+        .card-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text);
+        }
+        
+        /* Pilot Section */
+        .pilot-section {
+            background: rgba(246, 200, 188, 0.15);
+            padding: 100px 60px;
+            text-align: center;
+        }
+        
+        .pilot-badge {
+            display: inline-block;
+            background: var(--color-accent);
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .pilot-section h2 {
+            font-family: var(--font-heading);
+            font-size: 56px;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--color-text);
+        }
+        
+        .pilot-section p {
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto 24px;
+            color: var(--color-text);
+        }
+        
+        .pilot-deadline {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin: 24px 0 48px;
+        }
+        
+        .pilot-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--color-border);
+            padding: 60px 60px 40px;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+        
+        .footer-tagline {
+            font-size: 14px;
+            color: var(--color-text);
+        }
+        
+        .footer-contact p {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .footer-contact a {
+            color: var(--color-text);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .footer-contact a:hover {
+            color: var(--color-accent);
+        }
+        
+        .footer-social a {
+            color: var(--color-secondary);
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.2s ease;
+        }
+        
+        .footer-social a:hover {
+            color: var(--color-accent);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-border);
+            font-size: 14px;
+            color: var(--color-text);
+        }
+        
+        /* Login Modal */
+        .modal-overlay {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(107, 52, 16, 0.3);
-            z-index: -1;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .nav-logo {
-            font-style: italic;
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 40px;
-            text-align: left;
-        }
-        
-        <!-- Large featured logo section -->
-        .logo-section {
-            text-align: center;
-            margin: 80px 0 120px;
-            position: relative;
-        }
-        
-        .logo-large {
-            width: 400px;
-            height: 120px;
-            margin: 0 auto 20px;
+        .modal-overlay.active {
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: center;
+            opacity: 1;
         }
         
-        .logo-large img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-        
-        .logo-tagline {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-style: italic;
-            text-align: center;
-        }
-        
-        .hero-section {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-        
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: normal;
-            color: white;
-            line-height: 1.2;
-            margin-bottom: 30px;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 20px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero-description {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-        }
-        
-        /* Visual elements */
-        .hero-image {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            aspect-ratio: 16 / 9;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 18px;
-            font-weight: bold;
-            backdrop-filter: blur(5px);
-        }
-        
-        .hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        .color-spectrum {
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080);
-            border-radius: 4px;
-            margin: 40px 0;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-        
-        .skin-tone-preview {
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-        
-        .tone-sample {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        .tone-1 { background: #fdbcb4; }
-        .tone-2 { background: #edb98a; }
-        .tone-3 { background: #d8a882; }
-        .tone-4 { background: #c78b6c; }
-        .tone-5 { background: #a66e38; }
-        .tone-6 { background: #8b4513; }
-        .tone-7 { background: #6b3410; }
-        .tone-8 { background: #4a2c2a; }
-        
-        .cta-button {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .cta-button:hover {
+        .modal {
             background: white;
-            color: #6B3410;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
-        }
-        
-        .system-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 60px 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            color: #6B3410;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 40px;
-            text-align: center;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* Fixed 4-card grid layout */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        @media (max-width: 1024px) {
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 640px) {
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .feature-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-        
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            position: relative;
-        }
-        
-        .feature-icon img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
-        
-        .feature-title {
-            font-size: 1.4rem;
-            color: #6B3410;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        
-        .feature-description {
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin: 40px 0;
-        }
-        
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 20px;
-            background: rgba(107, 52, 16, 0.1);
-            border-radius: 10px;
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
             transition: transform 0.3s ease;
         }
         
-        .stat-item:hover {
-            transform: scale(1.05);
+        .modal-overlay.active .modal {
+            transform: scale(1);
         }
         
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #6B3410;
+        .modal h2 {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--color-text);
+        }
+        
+        .modal p {
+            font-size: 16px;
+            color: var(--color-text);
+            margin-bottom: 32px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
             display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--color-text);
         }
         
-        .stat-label {
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 5px;
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: var(--font-body);
+            transition: border-color 0.2s ease;
         }
         
-        .problem-section {
-            background: linear-gradient(135deg, rgba(107, 52, 16, 0.9) 0%, rgba(139, 69, 19, 0.9) 50%, rgba(160, 82, 45, 0.9) 100%);
-            color: white;
-            padding: 60px 40px;
-            border-radius: 15px;
-            margin: 40px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-accent);
         }
         
-        .problem-title {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
+        .modal-footer {
+            margin-top: 24px;
             text-align: center;
+            font-size: 14px;
         }
         
-        .problem-list {
-            list-style: none;
-            max-width: 800px;
-            margin: 0 auto;
+        .modal-footer a {
+            color: var(--color-accent);
+            text-decoration: none;
         }
         
-        .problem-item {
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 1.1rem;
+        .modal-footer a:hover {
+            text-decoration: underline;
         }
         
-        .problem-item:last-child {
-            border-bottom: none;
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: var(--color-text);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
         }
         
-        /* Footer */
-        .footer {
-            background: rgba(107, 52, 16, 0.9);
-            color: white;
-            padding: 60px 0 40px;
-            margin-top: 80px;
-            backdrop-filter: blur(10px);
+        .modal-close:hover {
+            color: var(--color-accent);
         }
         
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
-        }
-        
-        @media (max-width: 768px) {
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 72px;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            nav {
+                padding: 0 32px;
+            }
+            
+            .section {
+                padding: 40px 32px 80px;
+            }
+            
+            .pilot-section {
+                padding: 80px 32px;
+            }
+            
+            footer {
+                padding: 60px 32px 40px;
+            }
+            
             .footer-content {
                 grid-template-columns: 1fr;
-                gap: 30px;
-                text-align: center;
+                gap: 32px;
             }
-        }
-        
-        .footer-brand {
-            font-style: italic;
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-        
-        .footer-description {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        .footer-section h4 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .footer-section ul {
-            list-style: none;
-        }
-        
-        .footer-section li {
-            margin-bottom: 8px;
-        }
-        
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-section a:hover {
-            color: white;
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            margin-top: 40px;
-            padding-top: 20px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
         }
         
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
+            .hero h1 {
+                font-size: 56px;
             }
             
-            .logo-large {
-                font-size: 4rem;
+            .hero h2 {
+                font-size: 28px;
             }
             
-            .container {
-                padding: 20px 15px;
+            .hero p {
+                font-size: 18px;
             }
             
-            .system-section {
-                padding: 40px 20px;
+            .section-headline {
+                font-size: 36px;
             }
+            
+            .pilot-section h2 {
+                font-size: 40px;
+            }
+            
+            .nav-right {
+                gap: 20px;
+            }
+            
+            .btn {
+                padding: 14px 28px;
+                font-size: 14px;
+            }
+            
+            .nav-link {
+                display: none;
+            }
+            
+            .logo img {
+                height: 36px;
+            }
+        }
+        
+        /* Fade-in animation trigger */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="nav-logo">chrom<sup>all</sup>ogy</div>
-        
-        <!-- Large featured logo section -->
-        <div class="logo-section">
-            <div class="logo-large">
-                <img src="chromallogy-logo.png" alt="Chromallogy Logo" />
-            </div>
-            <div class="logo-tagline">Where science meets beauty</div>
+    <!--
+    ═══════════════════════════════════════════════════════════════════
+    IMAGE PLACEMENT GUIDE FOR CHROMALLOGY WEBSITE
+    ═══════════════════════════════════════════════════════════════════
+    
+    Currently, this site uses CSS gradients and colors for visual interest.
+    Here's where to add your actual images:
+    
+    1. HERO SECTION (Main visual impact)
+       Options:
+       a) Background image: Add to .hero CSS in <style> section
+          background-image: url('path/to/color-map-gradient.jpg');
+          
+       b) Floating element: Add <img> tag inside .hero-content
+          <img src="color-map-sample.png" alt="Chromallogy color space" 
+               style="max-width: 600px; margin: 40px auto; border-radius: 24px;">
+    
+    2. WHO WE WORK WITH CARDS
+       Add small icons above each card title:
+       - Beauty bottle icon for "Beauty Brands"
+       - Lab beaker icon for "OEM/ODM Labs"  
+       - Microscope icon for "In-House R&D Teams"
+       
+       Example:
+       <img src="icon-beauty.svg" alt="" style="width: 48px; margin-bottom: 16px;">
+    
+    3. PILOT SECTION
+       Add foundation lineup photo or color drops imagery:
+       <img src="foundation-lineup.jpg" alt="Foundation shade range" 
+            style="max-width: 1000px; margin: 40px auto; border-radius: 24px;">
+    
+    4. FAVICON (browser tab icon)
+       Add to <head> section:
+       <link rel="icon" type="image/png" href="favicon.png">
+    
+    ═══════════════════════════════════════════════════════════════════
+    -->
+    
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">
+            <img src="chromallogy-logo.png" alt="Chromallogy" style="height: 50px; width: auto;">
+        </a>
+        <div class="nav-right">
+            <a href="#demo" class="btn btn-primary">Book a Demo</a>
+            <button class="btn-secondary btn" id="loginBtn">Login</button>
         </div>
-        
-        <div class="hero-section">
-            <h1 class="hero-title">Redefining beauty<br>through color</h1>
-            
-            <p class="hero-subtitle">
-                The first research-backed, inclusive color system designed to help 
-                beauty brands and labs build intentional shade ranges from the inside out.
-            </p>
-            
-            <!-- Visual: Hero image placeholder -->
-            <div class="hero-image">
-                <img src="hero-image.png" alt="Chromallogy Color System" />
-            </div>
-            
-            <p class="hero-description">
-                Where inclusion becomes infrastructure. We're 
-                building the tools that will define what inclusive product development means 
-                in the next era of beauty.
-            </p>
-            
-            <!-- Visual: Color spectrum bar -->
-            <div class="color-spectrum"></div>
-            
-            <a href="mailto:hello@chromallogy.com?subject=Chromallogy%20Service%20Inquiry&body=Hi%20Chromallogy%20team,%0D%0A%0D%0AI'm%20interested%20in%20learning%20more%20about%20your%20services.%20Here's%20my%20information:%0D%0A%0D%0AName:%20[YOUR%20NAME]%0D%0ACompany:%20[YOUR%20COMPANY]%0D%0APosition/Title:%20[YOUR%20POSITION]%0D%0A%0D%0AArea%20of%20Interest%20(check%20all%20that%20apply):%0D%0A☐%20Annual%20Licensing%20Tiers%0D%0A☐%20Workshops%20%26%20Trainings%0D%0A☐%20Shade%20Portfolio%20Audits%0D%0A☐%20White-Labeled%20Toolkits%0D%0A%0D%0ACurrent%20Challenge/Need:%0D%0A[DESCRIBE%20YOUR%20CURRENT%20SHADE%20DEVELOPMENT%20CHALLENGES%20OR%20GOALS]%0D%0A%0D%0ABest%20time%20to%20connect:%0D%0A[YOUR%20PREFERRED%20CONTACT%20TIME%20AND%20METHOD]%0D%0A%0D%0AThanks%20for%20your%20time!%0D%0A%0D%0ABest%20regards,%0D%0A[YOUR%20NAME]" class="cta-button">Start Your Journey</a>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Chromallogy</h1>
+            <h2>Software That Helps Beauty Brands Build Inclusive Complexion Products</h2>
+            <p>Chromallogy is the first software built on an entirely new color space that uses biomarkers in skin to create a complete map of human skin tones. We help beauty brands, OEM/ODM labs, and in-house R&D teams develop foundations, concealers, and complexion products with systematic, science-backed methodology. For the first time, shade development has a scientific framework instead of costly trial-and-error. In an industry where one failed launch can shutter an entire brand, replacing guesswork with certainty isn't optional.</p>
+            <a href="#demo" class="btn btn-primary">Book a Demo</a>
         </div>
-        
-        <div class="system-section">
-            <h2 class="section-title">Our Offerings</h2>
-            
-            <p class="section-subtitle">
-                For decades, complexion has been <strong>misrepresented, oversimplified, and underbuilt</strong>. Chromallogy 
-                flips that script by making color a foundational input: scientific, strategic, and scalable.
-            </p>
-            
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-number">2.56M</span>
-                    <div class="stat-label">Pixel-point color mapping</div>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">384</span>
-                    <div class="stat-label">Statistically significant shades</div>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">99.7%</span>
-                    <div class="stat-label">Population coverage</div>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">First</span>
-                    <div class="stat-label">Biology-based system</div>
-                </div>
+    </section>
+    
+    <!-- Who We Work With Section -->
+    <section class="section" id="customers">
+        <h2 class="section-headline fade-in-element">Built for Brands, Labs, and R&D Teams</h2>
+        <div class="fade-in-element" style="text-align: center; margin: 0 auto 80px; max-width: 1200px;">
+            <img src="hero-image.png" alt="Inclusive foundation shade range" style="width: 100%; max-width: 1000px; height: auto; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
+        </div>
+        <div class="cards-grid">
+            <div class="card">
+                <h3 class="card-title">Beauty Brands</h3>
+                <p class="card-description">Launch inclusive product lines from day one without massive R&D budgets.</p>
             </div>
-            
-            <p style="text-align: center; color: #666; font-style: italic; margin-top: 30px;">
-                This isn't about aesthetics. It's about <strong>integrity</strong> in how we design for human skin. A strategic 
-                infrastructure layer, built from real research, designed to integrate, and meant to scale.
-            </p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon icon-research">
-                        <img src="annual-licensing-icon.png" alt="Annual Licensing" />
-                    </div>
-                    <h3 class="feature-title">Annual Licensing Tiers</h3>
-                    <p class="feature-description">
-                        ✓ Access to 2.56M pixel-point color mapping system<br>
-                        ✓ Classification taxonomy and technical specifications<br>
-                        ✓ Ongoing updates and methodology refinements
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon icon-system">
-                        <img src="workshops-icon.png" alt="Workshops & Trainings" />
-                    </div>
-                    <h3 class="feature-title">Workshops & Trainings</h3>
-                    <p class="feature-description">
-                        ✓ Live and virtual R&D team education<br>
-                        ✓ Cultural competency for inclusive shade development<br>
-                        ✓ Hands-on application of Chromallogy methodology
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon icon-embedded">
-                        <img src="audits-icon.png" alt="Shade Portfolio Audits" />
-                    </div>
-                    <h3 class="feature-title">Shade Portfolio Audits</h3>
-                    <p class="feature-description">
-                        ✓ Comprehensive analysis of existing shade ranges<br>
-                        ✓ Gap identification with precision scoring<br>
-                        ✓ Strategic recommendations for expansion/optimization
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon icon-scalable">
-                        <img src="white-labeled-icon.png" alt="White-Labeled Toolkits" />
-                    </div>
-                    <h3 class="feature-title">White-Labeled Toolkits</h3>
-                    <p class="feature-description">
-                        ✓ Customized systems for lab partners and consultants<br>
-                        ✓ Co-branded materials and frameworks<br>
-                        ✓ Technical integration support
-                    </p>
-                </div>
+            <div class="card">
+                <h3 class="card-title">OEM/ODM Labs</h3>
+                <p class="card-description">Translate client briefs into accurate, science-backed shade portfolios.</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">In-House R&D Teams</h3>
+                <p class="card-description">Expand shade ranges systematically with biology-based frameworks.</p>
             </div>
         </div>
-        
-        <div class="problem-section">
-            <h2 class="problem-title">The Industry Problem</h2>
-            
-            <ul class="problem-list">
-                <li class="problem-item">
-                    <strong>Outdated Methodologies:</strong> Most brands still rely on intuition, existing product lines, or sales data rather than scientific approaches to shade development.
-                </li>
-                <li class="problem-item">
-                    <strong>Exclusionary by Design:</strong> Color gets pushed to the end of product development, shaped by constraints instead of guided by rigorous systems.
-                </li>
-                <li class="problem-item">
-                    <strong>No Industry Standard:</strong> Labs and manufacturers lack a systematic, biology-based framework for inclusive complexion product development.
-                </li>
-                <li class="problem-item">
-                    <strong>Cultural Disconnect:</strong> R&D teams translate vague briefs into physical shades without context on cultural nuance or regional diversity.
-                </li>
-                <li class="problem-item">
-                    <strong>Costly Misses:</strong> Shade failures like Youthforia lead to reformulation waste, shelf delays, and brand damage—all preventable with better systems.
-                </li>
-            </ul>
+    </section>
+    
+    <!-- Pilot Program Section -->
+    <section class="pilot-section fade-in-element" id="pilot">
+        <div class="pilot-badge">Limited Spots</div>
+        <h2>Join Our Early 2026 Pilot Program</h2>
+        <p>We're launching with 10 partners across beauty brands, labs, and R&D teams to validate commercial value before our Q2 2026 market launch. Pilot partners get early access to the platform, hands-on support, and preferred pricing as founding customers.</p>
+        <p class="pilot-deadline">Applications close February 26, 2026</p>
+        <div class="pilot-cta">
+            <a href="#pilot-apply" class="btn btn-primary">Apply for Pilot Access</a>
         </div>
-        
-        <div class="system-section">
-            <h2 class="section-title">Who We Serve</h2>
-            
-            <p class="section-subtitle">
-                Chromallogy is built for the creators, formulators, and builders shaping the 
-                future of beauty. We speak to them with clarity, credibility, and cultural intelligence.
-            </p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon icon-indie">
-                        <img src="indie-brands-icon.png" alt="Indie Brand Founders" />
-                    </div>
-                    <h3 class="feature-title">Indie Brand Founders</h3>
-                    <p class="feature-description">
-                        Create inclusive products from day one without the internal R&D budget, language, or validation tools typically required.
-                    </p>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-logo">Chromallogy</div>
+                <p class="footer-tagline">Defining the Future of Beauty</p>
+            </div>
+            <div class="footer-contact">
+                <p><a href="mailto:chromallogy@surgestudio.co">chromallogy@surgestudio.co</a></p>
+                <p><a href="tel:+19102743377">+1 910 274 3377</a></p>
+            </div>
+            <div class="footer-social">
+                <p><a href="https://instagram.com/chromallogy" target="_blank">Instagram →</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Chromallogy. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" style="position: relative;">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2>Platform Access</h2>
+            <p>Log in to access your Chromallogy color mapping system, technical specs, and project dashboard.</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon icon-lab">
-                        <img src="lab-partners-icon.png" alt="Lab & OEM/ODM Partners" />
-                    </div>
-                    <h3 class="feature-title">Lab & OEM/ODM Partners</h3>
-                    <p class="feature-description">
-                        Translate vague briefs into physical shades with cultural context, regional tone diversity, and clear brand intent.
-                    </p>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon icon-rd">
-                        <img src="rd-teams-icon.png" alt="In-house R&D Teams" />
-                    </div>
-                    <h3 class="feature-title">In-house R&D Teams</h3>
-                    <p class="feature-description">
-                        Expand shade ranges with a global standard to brief across labs and markets, eliminating fragmented color decisions.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon icon-developers">
-                        <img src="product-developers-icon.png" alt="Product Developers" />
-                    </div>
-                    <h3 class="feature-title">Product Developers</h3>
-                    <p class="feature-description">
-                        Work with complete, unbiased datasets that lead to accurate matches and increased user trust in your formulations.
-                    </p>
-                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+            <div class="modal-footer">
+                <p>Don't have an account? <a href="#demo">Book a demo</a> to learn about our licensing packages.</p>
             </div>
         </div>
     </div>
     
-    <!-- Professional Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div>
-                <div class="footer-brand">chrom<sup>all</sup>ogy</div>
-                <p class="footer-description">
-                    A research-backed, inclusive color system designed to help beauty brands and labs build intentional shade ranges from the inside out.
-                </p>
-                <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; margin-bottom: 15px;">
-                    Part of Surge Studio
-                </p>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="rgba(255, 255, 255, 0.8)">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
-                    <a href="https://www.instagram.com/chromallogy/" target="_blank" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;">
-                        @chromallogy
-                    </a>
-                </div>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Product</h4>
-                <ul>
-                    <li><a href="#system">The System</a></li>
-                    <li><a href="#research">Research</a></li>
-                    <li><a href="#methodology">Methodology</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#careers">Careers</a></li>
-                    <li><a href="#press">Press</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="#documentation">Documentation</a></li>
-                    <li><a href="#case-studies">Case Studies</a></li>
-                    <li><a href="#blog">Blog</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
+    <script>
+        // Sticky Navigation with Background
+        const navbar = document.getElementById('navbar');
         
-        <div class="footer-bottom">
-            <p>&copy; 2025 Surge Studio. All rights reserved. | <a href="#privacy" style="color: inherit;">Privacy Policy</a> | <a href="#terms" style="color: inherit;">Terms of Service</a></p>
-        </div>
-    </footer>
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Fade-in on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in-element').forEach(el => observer.observe(el));
+        document.querySelectorAll('.card').forEach(el => observer.observe(el));
+        
+        // Login Modal
+        const loginBtn = document.getElementById('loginBtn');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        
+        loginBtn.addEventListener('click', () => {
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        modalClose.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Demo links
+        document.querySelectorAll('a[href="#demo"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.open('https://calendar.app.google/cx4QQpetkC4e67CS8', '_blank');
+            });
+        });
+        
+        // Pilot application link
+        document.querySelectorAll('a[href="#pilot-apply"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.open('https://docs.google.com/forms/d/1XaE1EPotwhZpVKPDXXe6auiatCyU0fsC1oaQnWfVJcU/edit', '_blank');
+            });
+        });
+        
+        // Login form submission (add your actual login logic)
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Add your login logic here
+            alert('Login functionality to be connected to your authentication system');
+        });
+    </script>
 </body>
 </html>
